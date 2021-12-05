@@ -25,6 +25,7 @@ namespace LeagueApp
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {

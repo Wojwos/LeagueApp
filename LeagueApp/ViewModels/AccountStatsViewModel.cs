@@ -10,6 +10,7 @@ using LeagueApp.API;
 using LeagueApp.Commands;
 using LeagueApp.Controller;
 using LeagueApp.Model;
+using LeagueApp.Utils;
 
 namespace LeagueApp.ViewModels
 {
@@ -17,30 +18,33 @@ namespace LeagueApp.ViewModels
     {
         private ControllerMain controller;
         public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand SearchPlayerCommand { get; set; }
         public AccountStatsViewModel()
         {
             controller = new ControllerMain();
-            SearchPlayerCommand = new RelayCommand(SearchPlayer);
+            SummonerName = Constans.Name;
+            Region = Constans.Region;
+            GetPlayerInfo();
         }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void SearchPlayer(Object obj)
+        private void GetPlayerInfo()
         {
-            if (controller.GetSummoner(Region, SearchedSummonerName))
+            if(SummonerName != null && Region != null)
             {
-                SummonerName = searchedSummonerName;
-                var entry = controller.GetContext(Region, controller.GetSummonerId(Region, SearchedSummonerName));
-                SummonerTier = entry.Item1;
-                SummonerRank = entry.Item2;
-                SummonerWins = entry.Item3.ToString();
-                SummonerLosses = entry.Item4.ToString();
+                if (controller.GetSummoner(Region, SummonerName))
+                {
+                    var entry = controller.GetContext(Region, controller.GetSummonerId(Region, SummonerName));
+                    SummonerTier = entry.Item1;
+                    SummonerRank = entry.Item2;
+                    SummonerWins = entry.Item3.ToString();
+                    SummonerLosses = entry.Item4.ToString();
+                }
+                else
+                    SummonerName = "Doesn't exist";
             }
-            else
-                SummonerName = "Doesn't exist";
         }
 
         private string region;
@@ -50,17 +54,6 @@ namespace LeagueApp.ViewModels
             set
             {
                 region = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string searchedSummonerName;
-        public string SearchedSummonerName
-        {
-            get { return searchedSummonerName; }
-            set
-            {
-                searchedSummonerName = value;
                 OnPropertyChanged();
             }
         }

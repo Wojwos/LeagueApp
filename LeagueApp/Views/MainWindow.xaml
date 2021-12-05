@@ -41,6 +41,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <DataTemplate x:Name="MainWindowTemplate" DataType="{x:Type viewModels:MainWindowViewModel}"/>
         <DataTemplate x:Name="AccountStatsTemplate" DataType="{x:Type viewModels:AccountStatsViewModel}">
             <views:AccountStats DataContext="{Binding}"/>
         </DataTemplate>
@@ -49,6 +50,27 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Ellipse Height="50" Width="50">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="C:\Users\Wojtek\source\repos\LeagueApp\LeagueApp\Assets\profileicon\0.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock Margin="25 0" Width="150" Height="30" FontWeight="Bold" FontSize="20" Text="{Binding SummonerName}"/>
+            <StackPanel Margin="0 10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBox Width="400" Height="30" FontSize="20" Text="{Binding SearchedSummonerName}">
+                    <TextBox.Effect>
+                        <DropShadowEffect Color="Black" Opacity="0.5" ShadowDepth="2" Direction="270"/>
+                    </TextBox.Effect>
+                </TextBox>
+                <ComboBox Width="75" Height="30" Text="{Binding Region}">
+                    <ComboBoxItem Content="EUW1"/>
+                    <ComboBoxItem Content="EUN1"/>
+                    <ComboBoxItem Content="NA1"/>
+                </ComboBox>
+                <Button Width="75" Content="Search" Command="{Binding SearchPlayerCommand}"/>
+            </StackPanel>
+        </StackPanel>
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,580">
             <Button Background="Transparent" BorderBrush="Transparent" Click="Minimaze_Click">
                 <materialDesign:PackIcon Foreground="White" Kind="WindowMinimize"/>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LeagueApp.Commands;
+using LeagueApp.Utils;
 
 namespace LeagueApp.ViewModels
 {
@@ -17,6 +18,8 @@ namespace LeagueApp.ViewModels
         public PlayersRankingViewModel()
         {
             DoSomethingCommand = new RelayCommand(DoSomething);
+            SummonerName = Constans.Name;
+            Region = Constans.Region;
         }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -24,6 +27,27 @@ namespace LeagueApp.ViewModels
         }
         private void DoSomething(Object obj)
         {
+        }
+        private string region;
+        public string Region
+        {
+            get { return region; }
+            set
+            {
+                region = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string summonerName;
+        public string SummonerName
+        {
+            get { return summonerName; }
+            set
+            {
+                summonerName = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

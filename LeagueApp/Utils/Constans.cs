@@ -8,6 +8,7 @@ namespace LeagueApp.Utils
 {
     class Constans
     {
+        public static string Name { get; set; }
         public static string Region { get; set; }
     }
 }

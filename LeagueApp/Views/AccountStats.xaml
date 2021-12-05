@@ -7,21 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="750" Background="#FF864489">
     <Grid>
-        <StackPanel Margin="50" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBox Width="400" Height="25" FontSize="20" Text="{Binding SearchedSummonerName}">
-                <TextBox.Effect>
-                    <DropShadowEffect Color="Black" Opacity="0.5" ShadowDepth="2" Direction="270"/>
-                </TextBox.Effect>
-            </TextBox>
-            <ComboBox Width="75" Height="25" Text="{Binding Region}">
-                <ComboBoxItem Content="EUW1"/>
-                <ComboBoxItem Content="EUN1"/>
-                <ComboBoxItem Content="NA1"/>
-            </ComboBox>
-            <Button Content="Search" Command="{Binding SearchPlayerCommand}"/>
-        </StackPanel>
         <StackPanel Margin="100">
-            <TextBox Width="200" Height="50" Text="{Binding SummonerName}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerTier}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerRank}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerWins}"/>
