@@ -11,6 +11,9 @@ using LeagueApp.Commands;
 using LeagueApp.Controller;
 using LeagueApp.Model;
 using LeagueApp.Utils;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 
 namespace LeagueApp.ViewModels
 {
@@ -24,7 +27,9 @@ namespace LeagueApp.ViewModels
             SummonerName = Constans.Name;
             Region = Constans.Region;
             GetPlayerInfo();
+            CreateWinLoseChart();
         }
+        public SeriesCollection Series { get; set; }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -45,6 +50,25 @@ namespace LeagueApp.ViewModels
                 else
                     SummonerName = "Doesn't exist";
             }
+        }
+
+        private void CreateWinLoseChart()
+        {
+            Series = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title ="Wins",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
+                    DataLabels = true
+                },
+                new PieSeries
+                {
+                    Title ="Loses",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(20) },
+                    DataLabels = true
+                }
+            };
         }
 
         private string region;

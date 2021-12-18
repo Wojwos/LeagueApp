@@ -4,15 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LeagueApp.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="750" Background="#FF864489">
     <Grid>
-        <StackPanel Margin="100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Height="200" Margin="25" Fill="White" RadiusX="10" RadiusY="10"/>
+        <Grid Margin="25" Height="150">
+            <lvc:PieChart Series="{Binding Series}" Hoverable="True" InnerRadius="0">
+                <lvc:PieChart.DataTooltip>
+                    <lvc:DefaultTooltip BulletSize="20"></lvc:DefaultTooltip>
+                </lvc:PieChart.DataTooltip>
+            </lvc:PieChart>
+        </Grid>
+        <!--<StackPanel Margin="100" Grid.ColumnSpan="3" Grid.RowSpan="3">
             <TextBox Width="200" Height="50" Text="{Binding SummonerTier}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerRank}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerWins}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerLosses}"/>
             <TextBox Width="200" Height="50" Text="{Binding SummonerWinRatio}"/>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </UserControl>
