@@ -28,8 +28,8 @@ namespace LeagueApp.ViewModels
             Region = Constans.Region;
             GetPlayerInfo();
             CreateWinLoseChart();
+            CreateChampionsChart();
         }
-        public SeriesCollection Series { get; set; }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -37,15 +37,15 @@ namespace LeagueApp.ViewModels
 
         private void GetPlayerInfo()
         {
-            if(SummonerName != null && Region != null)
+            if (SummonerName != null && Region != null)
             {
                 if (controller.GetSummoner(Region, SummonerName))
                 {
                     var entry = controller.GetContext(Region, controller.GetSummonerId(Region, SummonerName));
                     SummonerTier = entry.Item1;
                     SummonerRank = entry.Item2;
-                    SummonerWins = entry.Item3.ToString();
-                    SummonerLosses = entry.Item4.ToString();
+                    SummonerWins = entry.Item3;
+                    SummonerLosses = entry.Item4;
                 }
                 else
                     SummonerName = "Doesn't exist";
@@ -59,17 +59,51 @@ namespace LeagueApp.ViewModels
                 new PieSeries
                 {
                     Title ="Wins",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(SummonerWins) },
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title ="Loses",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(20) },
+                    Title ="Losses",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(summonerLosses) },
                     DataLabels = true
                 }
             };
         }
+        public SeriesCollection Series { get; set; }
+
+        private void CreateChampionsChart()
+        {
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Wins",
+                    Values = new ChartValues<int> { 10, 50, 39, 50 , 60, 40}
+                },
+                new ColumnSeries
+                {
+                    Title = "Losses",
+                    Values = new ChartValues<int> { 5, 40, 35, 30 , 72, 20}
+                }
+            };
+
+            ////adding series will update and animate the chart automatically
+            //SeriesCollection.Add(new ColumnSeries
+            //{
+            //    Title = "2016",
+            //    Values = new ChartValues<double> { 11, 56, 42 }
+            //});
+
+            ////also adding values updates and animates the chart automatically
+            //SeriesCollection[1].Values.Add(48d);
+
+            Labels = new[] { "Blitzcrank", "Darius", "Teemo", "Ziggs" , "Caitlyn", "Sivir"};
+            Formatter = value => value.ToString("N");
+        }
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
 
         private string region;
         public string Region
@@ -114,8 +148,8 @@ namespace LeagueApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string summonerWins;
-        public string SummonerWins
+        private int summonerWins;
+        public int SummonerWins
         {
             get { return summonerWins; }
             set
@@ -125,8 +159,8 @@ namespace LeagueApp.ViewModels
             }
         }
 
-        private string summonerLosses;
-        public string SummonerLosses
+        private int summonerLosses;
+        public int SummonerLosses
         {
             get { return summonerLosses; }
             set
