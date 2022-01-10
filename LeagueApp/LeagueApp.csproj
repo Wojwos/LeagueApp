@@ -81,6 +81,7 @@
     <Compile Include="Model\SummonerDTO.cs" />
     <Compile Include="Utils\Constans.cs" />
     <Compile Include="ViewModels\PlayersRankingViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\PlayersRanking.xaml.cs">
       <DependentUpon>PlayersRanking.xaml</DependentUpon>
     </Compile>

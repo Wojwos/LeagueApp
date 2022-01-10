@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000" WindowStyle="None" Background="#FF611B64" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <ControlTemplate x:Key="ListBoxItemControlTemplate1" TargetType="{x:Type ListBoxItem}">
+        <!--<ControlTemplate x:Key="ListBoxItemControlTemplate1" TargetType="{x:Type ListBoxItem}">
             <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
                 <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
@@ -40,7 +40,7 @@
                     <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
-        </ControlTemplate>
+        </ControlTemplate>-->
         <DataTemplate x:Name="MainWindowTemplate" DataType="{x:Type viewModels:MainWindowViewModel}"/>
         <DataTemplate x:Name="AccountStatsTemplate" DataType="{x:Type viewModels:AccountStatsViewModel}">
             <views:AccountStats DataContext="{Binding}"/>
@@ -81,16 +81,31 @@
             </Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0 50 0 0">
-            <ListView Padding="-1" Width="250" Background="#FF611B64" BorderThickness="0">
+            <Grid Width="250" Height="150" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0">
+                    <Button Background="Transparent" BorderThickness="0" Content="Account statistics" FontWeight="SemiBold" FontSize="25" Command="{Binding AccountStatsCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Button Background="Transparent" BorderThickness="0" Content="Player ranking" FontWeight="SemiBold" FontSize="25" Command="{Binding PlayerRankingCommand}"/>
+                </Grid>
+            </Grid>
+            <!--<ListView Padding="-1" Width="250" Background="#FF611B64" BorderThickness="0">
                 <ListViewItem BorderThickness="0" HorizontalContentAlignment="Center" Height="75" Template="{DynamicResource ListBoxItemControlTemplate1}" MouseLeftButtonUp="Account_Stats_Click">
                     <TextBlock Text="Account statistics" FontWeight="SemiBold" FontSize="25"/>
                 </ListViewItem>
                 <ListViewItem BorderThickness="0" HorizontalContentAlignment="Center" Height="75" Template="{DynamicResource ListBoxItemControlTemplate1}" MouseLeftButtonUp="Ranking_Click">
                     <TextBlock Text="Account statistics" FontWeight="SemiBold" FontSize="25"/>
                 </ListViewItem>
-            </ListView>
+            </ListView>-->
             <Border Background="#FF864489">
-                <ContentControl Width="750" Content="{Binding}"/>
+                <ContentControl Width="750" Content="{Binding CurrentViewModel}"/>
             </Border>
         </StackPanel>
     </Grid>

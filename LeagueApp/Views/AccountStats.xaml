@@ -42,12 +42,24 @@
                 </lvc:CartesianChart>
             </Grid>
         </Grid>
-        <!--<StackPanel Margin="100" Grid.ColumnSpan="3" Grid.RowSpan="3">
-            <TextBox Width="200" Height="50" Text="{Binding SummonerTier}"/>
-            <TextBox Width="200" Height="50" Text="{Binding SummonerRank}"/>
-            <TextBox Width="200" Height="50" Text="{Binding SummonerWins}"/>
-            <TextBox Width="200" Height="50" Text="{Binding SummonerLosses}"/>
-            <TextBox Width="200" Height="50" Text="{Binding SummonerWinRatio}"/>
-        </StackPanel>-->
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Rectangle Height="200" Margin="25" Fill="White" RadiusX="10" RadiusY="10"/>
+            <Grid Margin="25" Height="150">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalAlignment="Center">
+                        <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Tier:"/>
+                        <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Rank:"/>
+                        <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Wins:"/>
+                        <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Losses:"/>
+                    </StackPanel>
+                    <StackPanel Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalAlignment="Center">
+                        <TextBlock Width="100" Height="25" Text="{Binding SummonerTier}"/>
+                        <TextBlock Width="100" Height="25" Text="{Binding SummonerRank}"/>
+                        <TextBlock Width="100" Height="25" Text="{Binding SummonerWins}"/>
+                        <TextBlock Width="100" Height="25" Text="{Binding SummonerLosses}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

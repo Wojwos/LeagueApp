@@ -17,22 +17,17 @@ using LiveCharts.Wpf;
 
 namespace LeagueApp.ViewModels
 {
-    class AccountStatsViewModel : INotifyPropertyChanged
+    class AccountStatsViewModel : ViewModelBase
     {
         private ControllerMain controller;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public AccountStatsViewModel()
+        public AccountStatsViewModel(string name, string region)
         {
             controller = new ControllerMain();
-            SummonerName = Constans.Name;
-            Region = Constans.Region;
+            SummonerName = name;
+            Region = region;
             GetPlayerInfo();
             CreateWinLoseChart();
             CreateChampionsChart();
-        }
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void GetPlayerInfo()

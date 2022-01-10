@@ -18,10 +18,14 @@ namespace LeagueApp.ViewModels
         private ControllerProfile controllerProfile;
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand SearchPlayerCommand { get; set; }
+        public ICommand AccountStatsCommand { get; set; }
+        public ICommand PlayerRankingCommand { get; set; }
         public MainWindowViewModel()
         {
             controllerProfile = new ControllerProfile();
             SearchPlayerCommand = new RelayCommand(SearchPlayer);
+            AccountStatsCommand = new RelayCommand(AccountStats);
+            PlayerRankingCommand = new RelayCommand(PlayerRanking);
         }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -38,12 +42,29 @@ namespace LeagueApp.ViewModels
                 SummonerName = summoner.Item2;
                 SummonerId = summoner.Item3;
                 SummonerLevel = summoner.Item4;
-                Constans.Name = SummonerName;
-                Constans.Region = region;
-                Constans.Level = SummonerLevel;
+                if(CurrentViewModel is AccountStatsViewModel)
+                    CurrentViewModel = new AccountStatsViewModel(SummonerName, Region);
             }
             else
                 SummonerName = "Doesn't exist";
+        }
+        private void AccountStats(Object obj)
+        {
+            CurrentViewModel = new AccountStatsViewModel(SummonerName, Region);
+        }
+        private void PlayerRanking(Object obj)
+        {
+            CurrentViewModel = new PlayersRankingViewModel();
+        }
+
+        private ViewModelBase currentViewModel;
+        public ViewModelBase CurrentViewModel
+        {
+            get { return currentViewModel; }
+            set 
+            { 
+                currentViewModel = value; OnPropertyChanged(); 
+            }
         }
 
         private string region;

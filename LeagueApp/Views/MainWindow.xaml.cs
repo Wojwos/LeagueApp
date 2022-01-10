@@ -49,11 +49,11 @@ namespace LeagueApp
 
         private void Account_Stats_Click(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new AccountStatsViewModel();
+            //DataContext = new AccountStatsViewModel();
         }
         private void Ranking_Click(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new PlayersRankingViewModel();
+            //DataContext = new PlayersRankingViewModel();
         }
     }
 }

@@ -11,19 +11,14 @@ using LeagueApp.Utils;
 
 namespace LeagueApp.ViewModels
 {
-    class PlayersRankingViewModel : INotifyPropertyChanged
+    class PlayersRankingViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public ICommand DoSomethingCommand { get; set; }
         public PlayersRankingViewModel()
         {
             DoSomethingCommand = new RelayCommand(DoSomething);
             SummonerName = Constans.Name;
             Region = Constans.Region;
-        }
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void DoSomething(Object obj)
         {
