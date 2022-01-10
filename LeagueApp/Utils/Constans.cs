@@ -10,5 +10,6 @@ namespace LeagueApp.Utils
     {
         public static string Name { get; set; }
         public static string Region { get; set; }
+        public static long Level { get; set; }
     }
 }

@@ -12,17 +12,25 @@ namespace LeagueApp.Controller
 {
     class ControllerProfile
     {
-        public object GetContext(SummonerDTO summoner)
+        public bool SummonerExists(string region, string summonerName)
         {
-            var entry = GetEntry(summoner);
-            return null;
+            Summoner_V4 summoner_V4 = new Summoner_V4(region);
+
+            var summoner = summoner_V4.GetSummonerByName(summonerName);
+
+            return summoner != null;
+        }
+        public (int, string, string, long) GetContext(string region, string summonerName)
+        {
+            var summoner = GetSummoner(region, summonerName);
+            return (summoner.profileIconId, summoner.name, summoner.id, summoner.summonerLevel);
         }
 
-        private EntryDTO GetEntry(SummonerDTO summoner)
+        private SummonerDTO GetSummoner(string region, string summonerName)
         {
-            League_V4 league = new League_V4(Constans.Region);
-            var entry = league.GetEntryById(summoner.id).Where(p => p.QueueType.Equals("RANKED_SOLO_5x5")).FirstOrDefault();
-            return entry ?? new EntryDTO();
+            Summoner_V4 summoner_v4 = new Summoner_V4(region);
+            var summoner = summoner_v4.GetSummonerByName(summonerName);
+            return summoner ?? new SummonerDTO();
         }
     }
 }

@@ -15,12 +15,12 @@ namespace LeagueApp.ViewModels
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        private ControllerMain controller;
+        private ControllerProfile controllerProfile;
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand SearchPlayerCommand { get; set; }
         public MainWindowViewModel()
         {
-            controller = new ControllerMain();
+            controllerProfile = new ControllerProfile();
             SearchPlayerCommand = new RelayCommand(SearchPlayer);
         }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -30,12 +30,17 @@ namespace LeagueApp.ViewModels
 
         private void SearchPlayer(Object obj)
         {
-            controller = new ControllerMain();
-            if (controller.GetSummoner(Region, SearchedSummonerName))
+            controllerProfile = new ControllerProfile();
+            if (controllerProfile.SummonerExists(Region, SearchedSummonerName))
             {
-                Constans.Name = searchedSummonerName;
+                var summoner = controllerProfile.GetContext(Region, searchedSummonerName);
+                SummonerIconId = summoner.Item1;
+                SummonerName = summoner.Item2;
+                SummonerId = summoner.Item3;
+                SummonerLevel = summoner.Item4;
+                Constans.Name = SummonerName;
                 Constans.Region = region;
-                SummonerName = searchedSummonerName;
+                Constans.Level = SummonerLevel;
             }
             else
                 SummonerName = "Doesn't exist";
@@ -70,6 +75,39 @@ namespace LeagueApp.ViewModels
             set
             {
                 summonerName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int summonerIconId;
+        public int SummonerIconId
+        {
+            get { return summonerIconId; }
+            set
+            {
+                summonerIconId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string summonerId;
+        public string SummonerId
+        {
+            get { return summonerId; }
+            set
+            {
+                summonerId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private long summonerLevel;
+        public long SummonerLevel
+        {
+            get { return summonerLevel; }
+            set
+            {
+                summonerLevel = value;
                 OnPropertyChanged();
             }
         }
