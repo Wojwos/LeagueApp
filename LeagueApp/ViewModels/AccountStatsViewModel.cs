@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -44,13 +45,25 @@ namespace LeagueApp.ViewModels
 
         private void GetMatchInfo()
         {
-            List<MatchInfo> items = new List<MatchInfo>();
+            ObservableCollection<MatchInfo> items = new ObservableCollection<MatchInfo>();
             var summonerPuuid = controllerMatches.GetSummonerPuuid(Region, SummonerName);
             List<string> matchesId = controllerMatches.GetMatchesId(Region, summonerPuuid);
             foreach (var matchId in matchesId)
             {
                 var participantMatch = controllerMatches.GetContext(Region, matchId, SummonerName);
                 items.Add(new MatchInfo() { SummonerName = participantMatch.Item1, ChampionName = participantMatch.Item2, Kills = participantMatch.Item3, Deaths = participantMatch.Item4, Assists = participantMatch.Item5, Win = participantMatch.Item6 });
+            }
+            MatchesList = items;
+        }
+
+        private ObservableCollection<MatchInfo> matchesList;
+        public ObservableCollection<MatchInfo> MatchesList
+        { 
+            get { return matchesList; }
+            set
+            {
+                matchesList = value;
+                OnPropertyChanged();
             }
         }
 
@@ -196,16 +209,6 @@ namespace LeagueApp.ViewModels
             set
             {
                 summonerWinRatio = value;
-                OnPropertyChanged();
-            }
-        }
-        private string championName;
-        public string ChampionName
-        {
-            get { return championName; }
-            set
-            {
-                championName = value;
                 OnPropertyChanged();
             }
         }

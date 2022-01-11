@@ -51,30 +51,31 @@
                         <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Rank:"/>
                         <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Wins:"/>
                         <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Losses:"/>
-                        <TextBlock Width="100" Height="25" FontWeight="SemiBold" Text="Last played:"/>
                     </StackPanel>
                     <StackPanel Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalAlignment="Center">
                         <TextBlock Width="100" Height="25" Text="{Binding SummonerTier}"/>
                         <TextBlock Width="100" Height="25" Text="{Binding SummonerRank}"/>
                         <TextBlock Width="100" Height="25" Text="{Binding SummonerWins}"/>
                         <TextBlock Width="100" Height="25" Text="{Binding SummonerLosses}"/>
-                        <TextBlock Width="100" Height="25" Text="{Binding ChampionName}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <Rectangle Height="200" Margin="25" Fill="White" RadiusX="10" RadiusY="10"/>
-            <ListView Margin="50" Name="lvDataBinding"">
+            <ListView Margin="50" ItemsSource="{Binding MatchesList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Height="50" Width="200">
+                        <WrapPanel Height="50" Width="200" Orientation="Vertical">
                             <TextBlock Text="{Binding SummonerName}"/>
                             <TextBlock Text="{Binding ChampionName}"/>
-                            <TextBlock Text="{Binding Kills}"/>
-                            <TextBlock Text="{Binding Deaths}"/>
-                            <TextBlock Text="{Binding Assists}"/>
-                            <TextBlock Text="{Binding Win}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Kills}"/>
+                                <TextBlock Text="/"/>
+                                <TextBlock Text="{Binding Deaths}"/>
+                                <TextBlock Text="/"/>
+                                <TextBlock Text="{Binding Assists}"/>
+                            </StackPanel>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
