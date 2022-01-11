@@ -23,7 +23,7 @@ namespace LeagueApp.Controller
         {
             Summoner_V4 summoner_V4 = new Summoner_V4(region);
             var summoner = summoner_V4.GetSummonerByName(summonerName);
-            return summoner.id;
+            return summoner.Id;
         }
         public (string, string, int, int) GetContext(string region, string summonerId)
         {

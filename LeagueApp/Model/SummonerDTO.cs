@@ -8,9 +8,10 @@ namespace LeagueApp.Model
 {
     public class SummonerDTO
     {
-        public int profileIconId { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
-        public long summonerLevel { get; set; }
+        public int ProfileIconId { get; set; }
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public long SummonerLevel { get; set; }
+        public string Puuid { get; set; }
     }
 }

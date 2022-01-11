@@ -37,11 +37,12 @@ namespace LeagueApp.ViewModels
             controllerProfile = new ControllerProfile();
             if (controllerProfile.SummonerExists(Region, SearchedSummonerName))
             {
-                var summoner = controllerProfile.GetContext(Region, searchedSummonerName);
+                var summoner = controllerProfile.GetContext(Region, SearchedSummonerName);
                 SummonerIconId = summoner.Item1;
                 SummonerName = summoner.Item2;
                 SummonerId = summoner.Item3;
                 SummonerLevel = summoner.Item4;
+
                 if(CurrentViewModel is AccountStatsViewModel)
                     CurrentViewModel = new AccountStatsViewModel(SummonerName, Region);
             }
@@ -129,6 +130,17 @@ namespace LeagueApp.ViewModels
             set
             {
                 summonerLevel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string summonerPuuid;
+        public string SummonerPuuid
+        {
+            get { return summonerPuuid; }
+            set
+            {
+                summonerPuuid = value;
                 OnPropertyChanged();
             }
         }

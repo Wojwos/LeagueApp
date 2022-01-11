@@ -23,7 +23,7 @@ namespace LeagueApp.Controller
         public (int, string, string, long) GetContext(string region, string summonerName)
         {
             var summoner = GetSummoner(region, summonerName);
-            return (summoner.profileIconId, summoner.name, summoner.id, summoner.summonerLevel);
+            return (summoner.ProfileIconId, summoner.Name, summoner.Id, summoner.SummonerLevel);
         }
 
         private SummonerDTO GetSummoner(string region, string summonerName)

@@ -17,17 +17,41 @@ using LiveCharts.Wpf;
 
 namespace LeagueApp.ViewModels
 {
+    class MatchInfo
+    {
+        public string SummonerName { get; set; }
+        public string ChampionName { get; set; }
+        public int Kills { get; set; }
+        public int Deaths { get; set; }
+        public int Assists { get; set; }
+        public bool Win { get; set; }
+    }
     class AccountStatsViewModel : ViewModelBase
     {
         private ControllerMain controller;
+        private ControllerMatches controllerMatches;
         public AccountStatsViewModel(string name, string region)
         {
             controller = new ControllerMain();
+            controllerMatches = new ControllerMatches();
             SummonerName = name;
             Region = region;
             GetPlayerInfo();
             CreateWinLoseChart();
             CreateChampionsChart();
+            GetMatchInfo();
+        }
+
+        private void GetMatchInfo()
+        {
+            List<MatchInfo> items = new List<MatchInfo>();
+            var summonerPuuid = controllerMatches.GetSummonerPuuid(Region, SummonerName);
+            List<string> matchesId = controllerMatches.GetMatchesId(Region, summonerPuuid);
+            foreach (var matchId in matchesId)
+            {
+                var participantMatch = controllerMatches.GetContext(Region, matchId, SummonerName);
+                items.Add(new MatchInfo() { SummonerName = participantMatch.Item1, ChampionName = participantMatch.Item2, Kills = participantMatch.Item3, Deaths = participantMatch.Item4, Assists = participantMatch.Item5, Win = participantMatch.Item6 });
+            }
         }
 
         private void GetPlayerInfo()
@@ -93,7 +117,7 @@ namespace LeagueApp.ViewModels
             ////also adding values updates and animates the chart automatically
             //SeriesCollection[1].Values.Add(48d);
 
-            Labels = new[] { "Blitzcrank", "Darius", "Teemo", "Ziggs" , "Caitlyn", "Sivir"};
+            Labels = new[] { "Blitzcrank", "Darius", "Teemo", "Ziggs", "Caitlyn", "Sivir" };
             Formatter = value => value.ToString("N");
         }
         public SeriesCollection SeriesCollection { get; set; }
@@ -172,6 +196,16 @@ namespace LeagueApp.ViewModels
             set
             {
                 summonerWinRatio = value;
+                OnPropertyChanged();
+            }
+        }
+        private string championName;
+        public string ChampionName
+        {
+            get { return championName; }
+            set
+            {
+                championName = value;
                 OnPropertyChanged();
             }
         }

@@ -74,10 +74,16 @@
     </ApplicationDefinition>
     <Compile Include="API\Api.cs" />
     <Compile Include="API\League_V4.cs" />
+    <Compile Include="API\Match_V5.cs" />
     <Compile Include="API\Summoner_V4.cs" />
     <Compile Include="Controller\ControllerMain.cs" />
+    <Compile Include="Controller\ControllerMatches.cs" />
     <Compile Include="Controller\ControllerProfile.cs" />
     <Compile Include="Model\EntryDTO.cs" />
+    <Compile Include="Model\InfoDTO.cs" />
+    <Compile Include="Model\MatchDTO.cs" />
+    <Compile Include="Model\MetadataDTO.cs" />
+    <Compile Include="Model\ParticipantDTO.cs" />
     <Compile Include="Model\SummonerDTO.cs" />
     <Compile Include="Utils\Constans.cs" />
     <Compile Include="ViewModels\PlayersRankingViewModel.cs" />
