@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using LeagueApp.API;
 using LeagueApp.Commands;
 using LeagueApp.Controller;
@@ -26,6 +27,7 @@ namespace LeagueApp.ViewModels
         public int Deaths { get; set; }
         public int Assists { get; set; }
         public bool Win { get; set; }
+        public Brush Background => Win ? Brushes.LightGreen : Brushes.Pink;
     }
     class AccountStatsViewModel : ViewModelBase
     {
