@@ -47,15 +47,19 @@ namespace LeagueApp.ViewModels
 
         private void GetMatchInfo()
         {
-            ObservableCollection<MatchInfo> items = new ObservableCollection<MatchInfo>();
-            var summonerPuuid = controllerMatches.GetSummonerPuuid(Region, SummonerName);
-            List<string> matchesId = controllerMatches.GetMatchesId(Region, summonerPuuid);
-            foreach (var matchId in matchesId)
+            //TODO: add asyncychronous way of getting match info data
+            if (SummonerName != null && Region != null)
             {
-                var participantMatch = controllerMatches.GetContext(Region, matchId, SummonerName);
-                items.Add(new MatchInfo() { SummonerName = participantMatch.Item1, ChampionName = participantMatch.Item2, Kills = participantMatch.Item3, Deaths = participantMatch.Item4, Assists = participantMatch.Item5, Win = participantMatch.Item6 });
+                ObservableCollection<MatchInfo> items = new ObservableCollection<MatchInfo>();
+                var summonerPuuid = controllerMatches.GetSummonerPuuid(Region, SummonerName);
+                List<string> matchesId = controllerMatches.GetMatchesId(Region, summonerPuuid);
+                foreach (var matchId in matchesId)
+                {
+                    var participantMatch = controllerMatches.GetContext(Region, matchId, SummonerName);
+                    items.Add(new MatchInfo() { SummonerName = participantMatch.Item1, ChampionName = participantMatch.Item2, Kills = participantMatch.Item3, Deaths = participantMatch.Item4, Assists = participantMatch.Item5, Win = participantMatch.Item6 });
+                }
+                MatchesList = items;
             }
-            MatchesList = items;
         }
 
         private ObservableCollection<MatchInfo> matchesList;

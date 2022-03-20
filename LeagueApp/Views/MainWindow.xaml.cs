@@ -46,14 +46,5 @@ namespace LeagueApp
                 this.Close();
             }
         }
-
-        private void Account_Stats_Click(object sender, MouseButtonEventArgs e)
-        {
-            //DataContext = new AccountStatsViewModel();
-        }
-        private void Ranking_Click(object sender, MouseButtonEventArgs e)
-        {
-            //DataContext = new PlayersRankingViewModel();
-        }
     }
 }

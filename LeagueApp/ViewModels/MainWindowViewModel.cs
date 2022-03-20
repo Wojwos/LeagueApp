@@ -34,20 +34,23 @@ namespace LeagueApp.ViewModels
 
         private void SearchPlayer(Object obj)
         {
-            controllerProfile = new ControllerProfile();
-            if (controllerProfile.SummonerExists(Region, SearchedSummonerName))
+            if(SearchedSummonerName != null && Region != null)
             {
-                var summoner = controllerProfile.GetContext(Region, SearchedSummonerName);
-                SummonerIconId = summoner.Item1;
-                SummonerName = summoner.Item2;
-                SummonerId = summoner.Item3;
-                SummonerLevel = summoner.Item4;
+                controllerProfile = new ControllerProfile();
+                if (controllerProfile.SummonerExists(Region, SearchedSummonerName))
+                {
+                    var summoner = controllerProfile.GetContext(Region, SearchedSummonerName);
+                    SummonerIconId = summoner.Item1;
+                    SummonerName = summoner.Item2;
+                    SummonerId = summoner.Item3;
+                    SummonerLevel = summoner.Item4;
 
-                if(CurrentViewModel is AccountStatsViewModel)
-                    CurrentViewModel = new AccountStatsViewModel(SummonerName, Region);
+                    if (CurrentViewModel is AccountStatsViewModel)
+                        CurrentViewModel = new AccountStatsViewModel(SummonerName, Region);
+                }
+                else
+                    SummonerName = "Doesn't exist";
             }
-            else
-                SummonerName = "Doesn't exist";
         }
         private void AccountStats(Object obj)
         {
