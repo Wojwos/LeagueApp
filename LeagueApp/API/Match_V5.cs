@@ -13,20 +13,25 @@ namespace LeagueApp.API
         public Match_V5(string region) : base(region)
         {
         }
-        public MatchDTO GetMatchById(string matchId)
+        public List<MatchDTO> GetMatchListById(List<string> matchIdList)
         {
-            string path = "match/v5/matches/" + matchId;
+            List<string> urlList = new List<string>();
+            foreach(var matchId in matchIdList)
+            {
+                urlList.Add(GetURL("match/v5/matches/" + matchId));
+            }
 
-            var response = GET(GetURL(path));
-            string content = response.Content.ReadAsStringAsync().Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            var responseList = GET(urlList);
+            List<MatchDTO> matchList = new List<MatchDTO>();
+            foreach (var response in responseList)
             {
-                return JsonConvert.DeserializeObject<MatchDTO>(content);
+                string content = response.Content.ReadAsStringAsync().Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    matchList.Add(JsonConvert.DeserializeObject<MatchDTO>(content));
+                }
             }
-            else
-            {
-                return null;
-            }
+            return matchList;
         }
         public List<string> GetMatchesIdByPuuid(string summonerPuuid)
         {

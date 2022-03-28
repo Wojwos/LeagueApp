@@ -16,15 +16,20 @@ namespace LeagueApp.Controller
             var summoner = summoner_V4.GetSummonerByName(summonerName);
             return summoner.Puuid;
         }
-        public (string, string, int, int, int, bool) GetContext(string region, string matchId, string summonerName)
+        public List<(string, string, int, int, int, bool)> GetContext(string region, string summonerName, string summonerPuuid)
         {
             if(region == "EUW1" || region == "EUN1")
             {
                 region = "EUROPE";
             }
-            MatchDTO match = GetMatch(region, matchId, summonerName);
-            ParticipantDTO participantMatch =  match.Info.Participants.Where(p => p.SummonerName.Equals(summonerName)).FirstOrDefault();
-            return (participantMatch.SummonerName, participantMatch.ChampionName, participantMatch.Kills, participantMatch.Deaths, participantMatch.Assists, participantMatch.Win);
+            List<MatchDTO> matchList = GetMatchList(region, GetMatchesId(region, summonerPuuid), summonerName);
+            var contextList = new List<(string, string, int, int, int, bool)>();
+            foreach (var match in matchList)
+            {
+                ParticipantDTO participantMatch = match.Info.Participants.Where(p => p.SummonerName.Equals(summonerName)).FirstOrDefault();
+                contextList.Add((participantMatch.SummonerName, participantMatch.ChampionName, participantMatch.Kills, participantMatch.Deaths, participantMatch.Assists, participantMatch.Win));
+            }
+            return contextList;
         }
         public List<string> GetMatchesId(string region, string summonerPuuid)
         {
@@ -35,11 +40,11 @@ namespace LeagueApp.Controller
             Match_V5 match_v5 = new Match_V5(region);
             return match_v5.GetMatchesIdByPuuid(summonerPuuid);
         }
-        private MatchDTO GetMatch(string region, string matchId, string summonerName)
+        private List<MatchDTO> GetMatchList(string region, List<string> matchId, string summonerName)
         {
             Match_V5 match_v5 = new Match_V5(region);
-            var match = match_v5.GetMatchById(matchId);
-            return match ?? new MatchDTO();
+            var match = match_v5.GetMatchListById(matchId);
+            return match ?? new List<MatchDTO>();
         }
     }
 }

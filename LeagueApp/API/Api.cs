@@ -27,6 +27,19 @@ namespace LeagueApp.API
                 return result.Result;
             }
         }
+        protected List<HttpResponseMessage> GET(List<string> URLList)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                List<HttpResponseMessage> resultList = new List<HttpResponseMessage>();
+                foreach(var URL in URLList)
+                {
+                    var result = client.GetAsync(URL);
+                    resultList.Add(result.Result);
+                }
+                return resultList;
+            }
+        }
         protected string GetURL(string path)
         {
             return "https://" + Region + ".api.riotgames.com/lol/" + path + "?api_key=" + Key;
